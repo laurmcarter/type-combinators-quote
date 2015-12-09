@@ -17,7 +17,12 @@ cabal-version:       >=1.10
 
 library
   exposed-modules:
+    Data.Type.Fin.Quote
+    -- Data.Type.Sym.Quote
+    Data.Type.Nat.Quote
+    Data.Type.Index.Quote
     Data.Type.Product.Quote
+    Data.Type.Quote
   -- other-modules:       
   -- other-extensions:    
   build-depends:

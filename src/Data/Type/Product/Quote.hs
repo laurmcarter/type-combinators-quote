@@ -1,26 +1,38 @@
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE QuasiQuotes #-}
+{-# LANGUAGE ViewPatterns #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE LambdaCase #-}
 
-module Data.Type.Product.Quote where
+module Data.Type.Product.Quote
+  ( qP
+  ) where
 
+import Data.Type.Quote
 import Data.Type.Product
-import Type.Family.List
 import Language.Haskell.TH
 import Language.Haskell.TH.Quote
-import Language.Haskell.Meta.Parse
-import Text.Read
 
-π :: QuasiQuoter
-π = QuasiQuoter
-  { quoteExp  = undefined
-  , quotePat  = undefined
-  , quoteType = undefined
-  , quoteDec  = undefined
+qP :: QuasiQuoter
+qP = QuasiQuoter
+  { quoteExp  = parseProd (parseExp qq) prodExp
+  , quotePat  = parseProd (parsePat qq) prodPat
+  , quoteType = stub qq "quoteType not provided"
+  , quoteDec  = stub qq "quoteDec not provided"
   }
+  where
+  qq = "qP"
 
-{-
-parseProdExp :: String -> Q Exp
-parseProdExp s0 = 
--}
+parseProd :: (String -> Q a) -> ([Q a] -> Q a) -> String -> Q a
+parseProd prs bld = bld . map prs . commaSep
 
-splitOn :: Eq a => [a] -> [a] -> [[a]]
-splitOn 
+prodExp :: [Q Exp] -> Q Exp
+prodExp = \case
+  e : es -> [| $e :< $(prodExp es) |]
+  _      -> [| Ø |]
+
+prodPat :: [Q Pat] -> Q Pat
+prodPat = \case
+  e : es -> [p| $e :< $(prodPat es) |]
+  _      -> [p| Ø |]
 
