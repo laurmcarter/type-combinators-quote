@@ -13,7 +13,7 @@ import Control.Arrow
 import Language.Haskell.TH
 import qualified Data.List as L
 import Data.Maybe (maybeToList)
-import Type.Family.Nat hiding (fromInt)
+import Type.Family.Nat
 import Text.Read (readMaybe)
 import Data.Char (isSpace)
 import qualified Language.Haskell.Meta.Parse as P
@@ -54,13 +54,6 @@ notNeg qq n = maybe
   (failFrom qq $ "negative number: " ++ show n)
   return
   $ fromInt n
-
--- Remove with update of type-combinators
-fromInt :: Int -> Maybe N
-fromInt n = case compare n 0 of
-  LT -> Nothing
-  EQ -> Just Z
-  GT -> S <$> fromInt (pred n)
 
 -- }}}
 
