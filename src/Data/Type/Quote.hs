@@ -13,7 +13,7 @@ import Control.Arrow
 import Language.Haskell.TH
 import qualified Data.List as L
 import Data.Maybe (maybeToList)
-import Type.Family.Nat
+import Type.Family.Nat hiding (fromInt)
 import Text.Read (readMaybe)
 import Data.Char (isSpace)
 import qualified Language.Haskell.Meta.Parse as P
