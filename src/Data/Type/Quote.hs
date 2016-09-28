@@ -55,13 +55,6 @@ notNeg qq n = maybe
   return
   $ fromInt n
 
--- Remove with update of type-combinators
-fromInt :: Int -> Maybe N
-fromInt n = case compare n 0 of
-  LT -> Nothing
-  EQ -> Just Z
-  GT -> S <$> fromInt (pred n)
-
 -- }}}
 
 eitherM :: Monad m => String -> Either String a -> m a

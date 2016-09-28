@@ -18,13 +18,12 @@ Source-Repository head
 library
   exposed-modules:
     Data.Type.Fin.Quote
-    Data.Type.Sym.Quote
     Data.Type.Nat.Quote
     Data.Type.Index.Quote
     Data.Type.Product.Quote
     Data.Type.Quote
   build-depends:
-    base >=4.8 && <4.9,
+    base >=4.8 && <5,
     type-combinators >= 0.2,
     template-haskell,
     haskell-src-meta
